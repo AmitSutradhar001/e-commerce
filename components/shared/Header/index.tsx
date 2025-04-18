@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { APP_NAME } from "@/lib/constants";
+import ModeToggol from "./ModeToggol";
 
 const Header = () => {
   return (
@@ -23,12 +24,14 @@ const Header = () => {
           </Link>
         </div>
         <div className="flex justify-between space-x-2 items-center">
+          <ModeToggol />
+
           <Button asChild variant="ghost">
             <Link href={"/cart"}>
               <ShoppingCart /> Cart
             </Link>
           </Button>
-          <Button asChild variant="ghost">
+          <Button asChild variant="default">
             <Link href={"/sigh-in"}>
               <UserIcon /> Sigh In
             </Link>
