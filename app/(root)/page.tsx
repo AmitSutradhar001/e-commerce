@@ -1,6 +1,7 @@
 import { APP_DESCRIPTION } from "@/lib/constants";
 import { Metadata } from "next";
-import Loading from "../loading";
+import ProductList from "@/components/shared/Products/product-list";
+import sampleData from "@/db/sample-data";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -8,9 +9,11 @@ export const metadata: Metadata = {
 };
 
 const HomePage = () => {
+  // console.log(sampleData);
+
   return (
     <>
-      <Loading />
+      <ProductList data={sampleData.products} title="Product List" limit={4} />
     </>
   );
 };

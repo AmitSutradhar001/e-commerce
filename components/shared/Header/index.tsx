@@ -1,10 +1,8 @@
-import { ShoppingCart, UserIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { APP_NAME } from "@/lib/constants";
 import ModeToggol from "./ModeToggol";
-
+import Menu from "./menu";
 const Header = () => {
   return (
     <header className="w-full border-b py-2 px-0">
@@ -25,17 +23,7 @@ const Header = () => {
         </div>
         <div className="flex justify-between space-x-2 items-center">
           <ModeToggol />
-
-          <Button asChild variant="ghost">
-            <Link href={"/cart"}>
-              <ShoppingCart /> Cart
-            </Link>
-          </Button>
-          <Button asChild variant="default">
-            <Link href={"/sigh-in"}>
-              <UserIcon /> Sigh In
-            </Link>
-          </Button>
+          <Menu />
         </div>
       </div>
     </header>
