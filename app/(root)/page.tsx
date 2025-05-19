@@ -1,19 +1,19 @@
 import { APP_DESCRIPTION } from "@/lib/constants";
 import { Metadata } from "next";
 import ProductList from "@/components/shared/Products/product-list";
-import sampleData from "@/db/sample-data";
+import { getLatestProducts } from "@/lib/actions/product.action";
 
 export const metadata: Metadata = {
   title: "Home",
   description: APP_DESCRIPTION,
 };
 
-const HomePage = () => {
-  // console.log(sampleData);
+const HomePage = async () => {
+  const latestProducts = await getLatestProducts();
 
   return (
     <>
-      <ProductList data={sampleData.products} title="Product List" limit={4} />
+      <ProductList data={latestProducts} title="Product List" />
     </>
   );
 };

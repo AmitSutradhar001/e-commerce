@@ -1,5 +1,5 @@
 import ProductCard from "./product-card";
-import { Product } from "@/db/dataTypes";
+import { Product } from "@/types/index";
 
 const ProductList = ({
   data,
