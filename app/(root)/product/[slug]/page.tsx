@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { notFound } from "next/navigation";
 import ProductPrice from "@/components/shared/Products/product-prics";
 import { Badge } from "@/components/ui/badge";
-
+import ProductImages from "@/components/shared/Products/product-images";
 type Props = {
   params: { slug: string };
 };
@@ -12,12 +12,15 @@ type Props = {
 const ProductDetailsPage = async ({ params }: Props) => {
   const { slug } = await params;
   const product = await getProductBySlug(slug);
+  if (!product) notFound();
 
   return (
     <>
       <section>
-        <div className="grid grid-cols-1 md:grid-cols-5">
-          <div className="col-span-2"></div>
+        <div className="grid mt-5 grid-cols-1 md:grid-cols-5">
+          <div className="col-span-2">
+            <ProductImages images={product.images} />
+          </div>
           <div className="col-span-2 p-5">
             <div className="flex flex-col gap-4">
               <p>
