@@ -28,5 +28,6 @@ export async function getProductBySlug(slug: string) {
     ...product,
     price: product.price.toString(),
     rating: product.rating.toString(),
+    numReviews: product.numReviews.toString(),
   };
 }

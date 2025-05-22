@@ -19,5 +19,5 @@ export const insertProductSchema = z.object({
   isFeatured: z.boolean(),
   banner: z.string().nullable(),
   price: currency,
-  numReviews: z.string(),
+  numReviews: z.number(),
 });

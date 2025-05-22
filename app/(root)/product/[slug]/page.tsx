@@ -5,12 +5,14 @@ import { notFound } from "next/navigation";
 import ProductPrice from "@/components/shared/Products/product-prics";
 import { Badge } from "@/components/ui/badge";
 import ProductImages from "@/components/shared/Products/product-images";
-type Props = {
-  params: { slug: string };
-};
 
-const ProductDetailsPage = async ({ params }: Props) => {
+const ProductDetailsPage = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) => {
   const { slug } = await params;
+
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 
