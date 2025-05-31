@@ -1,6 +1,6 @@
 "use server";
 import { LATEST_PRODUCTS_LIMIT } from "../constants";
-import { PrismaClient } from "../generated/prisma";
+import { PrismaClient } from "@prisma/client";
 
 // Creating the client
 const prisma = new PrismaClient();
