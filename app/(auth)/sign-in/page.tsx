@@ -9,12 +9,22 @@ import { APP_NAME } from "@/lib/constants";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import CredentialsSignInForm from "./credentials-signin-form";
+import { redirect } from "next/navigation";
+import { auth } from "@/auth";
 
 export const metadata: Metadata = {
   title: "Sign In",
 };
 
-const SignInPage = () => {
+const SignInPage = async (props: {
+  searchParams: Promise<{
+    callbackUrl: string;
+  }>;
+}) => {
+  const { callbackUrl } = await props.searchParams;
+  const session = await auth();
+  if (session) return redirect(callbackUrl || "/");
   return (
     <>
       <div className="w-full max-w-md max-auto">
@@ -35,7 +45,7 @@ const SignInPage = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
-            {/* Sign In Form Here! */}
+            <CredentialsSignInForm />
           </CardContent>
         </Card>
       </div>
