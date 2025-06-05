@@ -3,15 +3,15 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signInDefaultValues } from "@/lib/constants";
+import { signUpDefaultValues } from "@/lib/constants";
 import Link from "next/link";
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
-import { signInWithCredentials } from "@/lib/actions/users.actions";
+import { signUpUser } from "@/lib/actions/users.actions";
 import { useSearchParams } from "next/navigation";
 
-const CredentialsSignInForm = () => {
-  const [data, action] = useActionState(signInWithCredentials, {
+const SignUpForm = () => {
+  const [data, action] = useActionState(signUpUser, {
     success: false,
     message: "",
   });
@@ -22,6 +22,19 @@ const CredentialsSignInForm = () => {
       <form action={action} className="space-y-3">
         <input type="hidden" name="callbackUrl" value={callbackUrl} />
         <div>
+          <Label className="py-2" htmlFor="name">
+            Name
+          </Label>
+          <Input
+            id="name"
+            name="name"
+            type="text"
+            autoComplete="name"
+            defaultValue={signUpDefaultValues.name}
+            required
+          />
+        </div>
+        <div>
           <Label className="py-2" htmlFor="email">
             Email
           </Label>
@@ -30,7 +43,7 @@ const CredentialsSignInForm = () => {
             name="email"
             type="email"
             autoComplete="email"
-            defaultValue={signInDefaultValues.email}
+            defaultValue={signUpDefaultValues.email}
             required
           />
         </div>
@@ -43,24 +56,37 @@ const CredentialsSignInForm = () => {
             name="password"
             type="password"
             autoComplete="password"
-            defaultValue={signInDefaultValues.password}
+            defaultValue={signUpDefaultValues.password}
             required
           />
         </div>
         <div>
-          <SignInBtn />
+          <Label className="py-2" htmlFor="confirmPassword">
+            Confirm Password
+          </Label>
+          <Input
+            id="confirmPassword"
+            name="confirmPassword"
+            type="password"
+            autoComplete="confirmPassword"
+            defaultValue={signUpDefaultValues.confirmPassword}
+            required
+          />
+        </div>
+        <div>
+          <SignUpBtn />
         </div>
         {data && !data.success && (
           <div className="text-center text-destructive">{data.message}</div>
         )}
         <div className="text-sm text-center text-muted-foreground">
-          Don&apos;t have an account?{" "}
+          Already have an account?{" "}
           <Link
-            href="/sign-up"
+            href="/sign-in"
             target="_self"
             className="text-blue-500 underline font-bold"
           >
-            Sign Up
+            Sign In
           </Link>
         </div>
       </form>
@@ -68,12 +94,12 @@ const CredentialsSignInForm = () => {
   );
 };
 
-const SignInBtn = () => {
+const SignUpBtn = () => {
   const { pending } = useFormStatus();
   return (
     <Button disabled={pending} className="w-full" variant="default">
-      {pending ? "Submitting..." : "Sign In"}
+      {pending ? "Submitting..." : "Sign Up"}
     </Button>
   );
 };
-export default CredentialsSignInForm;
+export default SignUpForm;
