@@ -6,6 +6,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import type { NextAuthConfig } from "next-auth";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import path from "path";
 
 export const config = {
   trustHost: true, // only for testing
@@ -62,6 +63,7 @@ export const config = {
     async jwt({ user, token }: any) {
       // Assign user fields to token
       if (user) {
+        token.id = user.id;
         token.role = user.role;
         // If user has no name the use the 1st part of the email.
         if (user.name === "NO_NAME") {
@@ -77,8 +79,24 @@ export const config = {
       return token;
     },
     authorized({ request, auth }: any) {
-      // Check for session cart cookie
+      // Array of regex patterns of path we want to protect
+      const protectedPaths = [
+        /\/shipping-address/,
+        /\/payment-method/,
+        /\/place-order/,
+        /\/profile/,
+        /\/user\/(.*)/,
+        /\/order\/(.*)/,
+        /\/admin/,
+      ];
+
+      // Get pathname from the req URL object
+      const { pathname } = request.nextUrl;
+
+      // Check if user is not auth and accessing
+      if (!auth && protectedPaths.some((p) => p.test(pathname))) return false;
       if (!request.cookies.get("sessionCartId")) {
+        // Check for session cart cookie
         const sessionCartId = crypto.randomUUID();
         // Clone the req headers
         const newRequestHeaders = new Headers(request.headers);

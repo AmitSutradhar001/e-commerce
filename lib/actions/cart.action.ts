@@ -33,6 +33,13 @@ export async function addItemToCart(data: CartItem) {
 
     // Get current authenticated user session
     const session = await auth();
+    console.log(session);
+    // Check Session
+    if (!session)
+      return {
+        success: false,
+        message: "Sign In to proceed!",
+      };
     // Extract userId if logged in, else undefined for guest users
     const userId = session?.user?.id as string | undefined;
 

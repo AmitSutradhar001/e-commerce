@@ -7,6 +7,10 @@ import ProductImages from "@/components/shared/Products/product-images";
 import AddCart from "@/components/shared/Products/add-to-cart";
 import { getMyCart } from "@/lib/actions/cart.action";
 
+export const metadata = {
+  title: "Detail",
+};
+
 const ProductDetailsPage = async ({
   params,
 }: {
